@@ -1,27 +1,40 @@
-/**
- * Created by cicoriasmbp13 on 2/23/16.
- */
 
+'use strict';
 
-var request = require('supertest')
-    , express = require('express');
+var assert = require('assert'),
+    path = require('path'),
+    crypto = require('crypto');
 
-var app = express();
+var adminAcl = require(path.join(__dirname, '../lib/adminAcl.js'));
 
-app.get('/user', function(req, res){
-    res.status(200).json({ name: 'tobi' });
-});
-
-
-
-describe('GET /user', function(){
-    it('respond with json', function(done){
-        request(app)
-            .get('/user')
-            .set('Accept', 'application/json')
-            .expect('Content-Type', /json/)
-            .expect(200, done);
-    })
+describe('generate random bytes', function () {
+  it('some base64 string', function (done) {
+    adminAcl.generateSecret( function (err, result){
+       assert(result, 'result is null');
+       console.log('result: %s', result);
+       done();
+    });
+  })
 })
 
+describe('generate random bytes', function () {
+  it('some base64 string', function (done) {
+    adminAcl.generateSecret( function (err, result){
+       assert(result, 'result is null');
+       var newbuff = new Buffer(result, 'base64');
+       assert.equal(newbuff.toString('base64'), result);
+       done();
+    });
+  })
+})
 
+describe('generate random bytes', function () {
+  it('some base64 string', function (done) {
+    adminAcl.generateSecret( function (err, result){
+       assert(result, 'result is null');
+       var newbuff = new Buffer(result + 'z', 'base64');
+       assert.notEqual(newbuff.toString('base64', result));
+       done();
+    });
+  })
+})

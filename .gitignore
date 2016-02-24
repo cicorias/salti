@@ -30,9 +30,6 @@ node_modules
 # Debug log from npm
 npm-debug.log
 
-
-
-
 _replicator/*
 _users/*
 db/*
@@ -93,3 +90,7 @@ crashlytics.properties
 crashlytics-build.properties
 fabric.properties
 
+
+# ts for now
+tsconfig.json
+.vscode
